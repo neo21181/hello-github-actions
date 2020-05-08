@@ -30,6 +30,18 @@ jobs:
     - name: Run a one-line script
       run: echo Hello, $name!
 
+  context_info:
+    runs-on: ubuntu-latest
+    env:
+      github_context: ${{toJson(github)}}
+      github_committer: ${{github.event.commits[0].author.name}}
+    steps: 
+      - name: multiline info
+        run: |
+          echo $github_context
+          echo Actor: ${{ github.actor}}
+          echo commit by: $github_committer
+      
   # This workflow contains a single job called "build"
   test:
     # The type of runner that the job will run on
